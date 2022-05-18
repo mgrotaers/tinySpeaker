@@ -25,8 +25,8 @@ main (void)
 	TCCR1 = 0x00000001; /*_BV(CS10);*/
 	
 	/*Setup ADC*/
-	ADMUX = 0x00000001;
-	ADCSRA = 0x11100100;
+	ADMUX = 0x00000001; /*_BV(MUX0)*/
+	ADCSRA = 0x11100100; /*_BV(ADEN) | _BV(ADSC) | _BV(ADATE) | _BV(ADPS2)
 	
 	while (1)
 	{
