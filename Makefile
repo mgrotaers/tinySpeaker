@@ -1,14 +1,11 @@
 # Name: Makefile
-# Project: hid-data example
-# Author: Christian Starkjohann
-# Creation Date: 2008-04-07
-# Tabsize: 4
+# Modified from file created by: Christian Starkjohann 
 # Copyright: (c) 2008 by OBJECTIVE DEVELOPMENT Software GmbH
 # License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
 
-DEVICE  = attiny2313
-DEVPROG = t2313
-F_CPU   = 8000000
+DEVICE  = attiny85
+DEVPROG = t85
+F_CPU   = 16500000
 FUSE_L  = 0xe4
 FUSE_H  = 0xdb
 AVRDUDE = avrdude -c usbtiny -p $(DEVPROG)
