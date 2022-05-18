@@ -63,7 +63,7 @@ main (void)
 		}
 		
 		//get new time
-		int16_t outVal = (int16_t)a*sin(2*PI*f*t*100) + 256/2;
+		int16_t outVal = (int16_t)a*sin(2*PI*f*t*10) + 256/2;
 		
 		OCR1B = outVal;
 		
