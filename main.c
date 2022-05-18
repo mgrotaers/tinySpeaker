@@ -8,6 +8,7 @@ static void clock_setup(void)
 }
 
 #define const float PI=3.141593
+#define const int delayTime = 10000
 
 main (void)
 {
@@ -30,16 +31,46 @@ main (void)
 	ADMUX = 0x00000001; /*_BV(MUX0)*/
 	ADCSRA = 0x11100100; /*_BV(ADEN) | _BV(ADSC) | _BV(ADATE) | _BV(ADPS2)*/
 	
+	/*Setup initial conditions*/
+	int fTick = 0;
+	int f = 440;
+	int t = 0;
+	
 	while (1)
 	{
 		/*Collect ADC value and convert from 1024 to 256.*/
 		int16_t a = ADC;
-		a = a * 256/1024;
+		a = a/2 * 256/1024;
 		
 		/*Create sound function*/
 		//get frequency
+		if (t > delayTime){
+			switch (fTick){
+				case 0:
+					f = 440;
+					fTick++;
+					break;
+				case 1:
+					f = 880;
+					fTick++;
+					break;
+				case 2;
+					f = 1760;
+					fTick = 0;
+					break;
+			}
+			t=0;
+		}
 		
 		//get new time
-		int16_t outVal = a*sin(2*PI*f*t)
+		int16_t outVal = (int16_t)a*sin(2*PI*f*t*100) + 256/2;
+		
+		OCR1B = outVal;
+		
+		t++;
+		
+		
 	}
+	
+	return 0;
 }
