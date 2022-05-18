@@ -14,15 +14,19 @@ main (void)
 	clock_setup();
   
 	/*Setup Inputs and Outputs*/
-	DDRB &= _BV(DDB2); /*ADC1 Input*/
+	DDRB = 0x00010000;
+	/*
+	DDRB &= _BV(DDB2); /*ADC1 Input
 	DDRB |= _BV(DDB4); /*PB4 PWM Output*/
   
 	/*Setup PWM*/
-	PLLCSR = _BV(PCKE) | _BV(PLLE);
-	GTCCR = _BV(PWM1B) | _BV(COM1B0);
-	TCCR1 = _BV(CS10);
+	PLLCSR = 0x00000110; /*_BV(PCKE) | _BV(PLLE);*/
+	GTCCR = 0x01010000; /*_BV(PWM1B) | _BV(COM1B0);*/
+	TCCR1 = 0x00000001; /*_BV(CS10);*/
 	
-	
+	/*Setup ADC*/
+	ADMUX = 0x00000001;
+	ADCSRA = 0x11100100;
 	
 	while (1)
 	{
