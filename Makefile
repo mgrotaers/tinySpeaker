@@ -41,7 +41,8 @@ COMPILE = avr-gcc -Wall -Os -DF_CPU=$(F_CPU) $(CFLAGS) -mmcu=$(DEVICE)
 #        | | | +-------------- WDTON (watchdog timer always on -> disable)
 #        | | +---------------- SPIEN (enable serial programming -> enabled)
 #        | +------------------ DWEN (debug wire enable)
-#        +-------------------- RSTDISBL (disable external reset -> 
+#        +-------------------- RSTDISBL (disable external reset -> enabled)#
+
 
 # symbolic targets:
 help:
