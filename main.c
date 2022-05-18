@@ -7,6 +7,8 @@ static void clock_setup(void)
 	CLKPR = 0x00000000;
 }
 
+#define const float PI=3.141593
+
 main (void)
 {
 	/*Setup Clock*/
@@ -26,9 +28,18 @@ main (void)
 	
 	/*Setup ADC*/
 	ADMUX = 0x00000001; /*_BV(MUX0)*/
-	ADCSRA = 0x11100100; /*_BV(ADEN) | _BV(ADSC) | _BV(ADATE) | _BV(ADPS2)
+	ADCSRA = 0x11100100; /*_BV(ADEN) | _BV(ADSC) | _BV(ADATE) | _BV(ADPS2)*/
 	
 	while (1)
 	{
+		/*Collect ADC value and convert from 1024 to 256.*/
+		int16_t a = ADC;
+		a = a * 256/1024;
+		
+		/*Create sound function*/
+		//get frequency
+		
+		//get new time
+		int16_t outVal = a*sin(2*PI*f*t)
 	}
 }
