@@ -1,13 +1,5 @@
 #include <avr/io.h>
-#include <avr/interrupt.h>
-#include <avr/sleep.h>
 #include <util/delay.h>
-
-static void clock_setup(void)
-{
-	CLKPR = 0x80; //B10000000;
-	CLKPR = 0x00; //B00000000;
-}
 
 const float PI=3.141593;
 const int delayTime = 1000;
@@ -16,7 +8,8 @@ int main ()
 {
 	/*Setup Clock*/
 	cli();
-	clock_setup();
+        CLKPR = 0x80; //B10000000;
+	CLKPR = 0x00; //B00000000;
 
 	/*Setup Inputs and Outputs*/
 	DDRB = 0x10; //B00010000;
