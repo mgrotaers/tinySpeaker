@@ -3,11 +3,13 @@
 # Copyright: (c) 2008 by OBJECTIVE DEVELOPMENT Software GmbH
 # License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
 
+# Use usbtiny or linuxgpio programmers
+
 DEVICE  = attiny85
 DEVPROG = t85
-F_CPU   = 16500000
-FUSE_L  = 0xe4
-FUSE_H  = 0xdb
+F_CPU   = 16000000
+FUSE_L  = 0x41
+FUSE_H  = 0xdf
 AVRDUDE = avrdude -c usbtiny -p $(DEVPROG)
 
 CFLAGS  = -Iusbdrv -I. -DDEBUG_LEVEL=0
@@ -24,14 +26,14 @@ COMPILE = avr-gcc -Wall -Os -DF_CPU=$(F_CPU) $(CFLAGS) -mmcu=$(DEVICE)
 #
 ############################## ATTiny85 MY SETTINGS ##########################
 # ATMega*5 FUSE_L (Fuse low byte):
-# 0xe1 = 1 1 1 0   0 0 0 1
+# 0x41 = 0 1 0 0   0 0 0 1
 #        ^ ^ \+/   \--+--/
 #        | |  |       +------- CKSEL 3..0 (clock selection -> high freq PLL clock 16MHz internal)
-#        | |  +--------------- SUT 1..0 (BOD enabled, slowly rising power)
+#        | |  +--------------- SUT 1..0 (BOD disabled)
 #        | +------------------ CKOUT (clock output on CKOUT pin -> disabled)
-#        +-------------------- CKDIV8 (divide clock by 8 -> don't divide)
+#        +-------------------- CKDIV8 (divide clock by 8)
 # ATMega*5 FUSE_H (Fuse high byte):
-# 0xdd = 1 1 0 1   1 1 0 1
+# 0xdf = 1 1 0 1   1 1 1 1
 #        ^ ^ ^ ^   ^ \-+-/ 
 #        | | | |   |   +------ BODLEVEL 2..0 (brownout trigger level -> 2.7V)
 #        | | | |   +---------- EESAVE (preserve EEPROM on Chip Erase -> not preserved)

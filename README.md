@@ -14,11 +14,15 @@ The sound equation used to create a music note used is:
         t is the time.
         
         y is the output to the speaker.
-        
+
+Output not pure music notes.  May need to work on circuit
+to introduce a dc filter capacitor or need to work on time
+in program.        
         
 ## *ATtiny85 Inputs*
 
 Pin 7 (PB2) will be used as ADC1 producing a value between 0 to 1024 from a potentiometer.
+The potentiometer will control the volume.
 
 Frequency of sound will be generated in the program on a time delay and will have the following frequencies:
   - 440Hz (Middle C)
