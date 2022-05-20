@@ -1,4 +1,4 @@
-#ATtiny85 used to generate sound through speaker
+# ATtiny85 used to generate sound through speaker
 
 ## *Sound Model*
 
