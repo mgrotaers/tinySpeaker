@@ -1,11 +1,12 @@
 #include <avr/io.h>
 #include <util/delay.h>
+#include <avr/interrupt.h>
 
 int main ()
 {
 	/*Setup Clock*/
 	cli();
-  CLKPR = 0x80; //B10000000;
+  	CLKPR = 0x80; //B10000000;
 	CLKPR = 0x00; //B00000000;
 
 	/*Setup Inputs and Outputs*/
@@ -13,10 +14,10 @@ int main ()
 
 	/*DDRB &= _BV(DDB2); ADC1 Input*/
 	/*DDRB |= _BV(DDB4); PB4 PWM Output*/
-  /*For noise cancelling can use the following options:
-      - Use DDB4 as PWM Output with speaker wired in reverse.
-      - Use DDB3 as PWM Output, as OCR1B is inverted, with speaker wired normally.
-      - This program is currently set up for DDB4.*/
+  	/*For noise cancelling can use the following options:
+      		- Use DDB4 as PWM Output with speaker wired in reverse.
+      		- Use DDB3 as PWM Output, as OCR1B is inverted, with speaker wired normally.
+      		- This program is currently set up for DDB4.*/
 
 	/*Setup PWM*/
 	PLLCSR = 0x06; //B00000110; /*_BV(PCKE) | _BV(PLLE);*/
@@ -29,11 +30,22 @@ int main ()
 
 	/*Setup initial conditions*/
 
+
 	while (1)
 	{
 		/*Collect ADC value and convert from 1024 to 256.*/
 		int16_t outSound = ADC;
-		outSound = outSound/2 * 256/1024 - 2;
+		//outSound = outSound * 256/1024 - 74;
+		outSound = outSound - 805;//zero adc
+		outSound = outSound * 10;//internal amplifly
+		outSound = outSound + 127;//speaker pwm
+		if (outSound < 0) {
+			outSound = 0;
+		} else if (outSound > 255) {
+			outSound = 255;
+		}
+
+
 
 		/*Create sound function*/
 		OCR1B = outSound;
